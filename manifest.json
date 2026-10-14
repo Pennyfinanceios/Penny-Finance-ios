@@ -1,6 +1,6 @@
 {
   "name": "Penny Finance KRD",
-  "short_name": "Penny",
+  "short_name": "Penny Finance",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
