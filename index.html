@@ -175,7 +175,7 @@
         .sb-c-settings { color:#0ea5e9; }
         [data-theme="golden"] .sb-c-settings { background: linear-gradient(135deg,#bae6fd,#7dd3fc); }
         .set-sw{position:relative;width:46px;height:26px;flex-shrink:0;display:inline-block}.set-sw input{opacity:0;width:0;height:0}.set-sw span{position:absolute;inset:0;background:#cbd5e1;border-radius:26px;transition:.2s}.set-sw span:before{content:"";position:absolute;width:20px;height:20px;top:3px;left:3px;background:#fff;border-radius:50%;transition:.2s}.set-sw input:checked+span{background:#22c07a}.set-sw input:checked+span:before{transform:translateX(20px)}
-        .set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(128,128,128,.18)}.set-row:last-child{border-bottom:none}.set-title{font-size:14px;font-weight:700}.set-sub{font-size:11.5px;opacity:.65;margin-top:2px}.set-h{font-size:12px;font-weight:800;opacity:.6;margin:14px 0 4px}
+        .set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(128,128,128,.18)}.set-row:last-child{border-bottom:none}.set-title{font-size:14px;font-weight:700}.set-sub{font-size:11.5px;opacity:.65;margin-top:2px}.set-h{display:flex;width:fit-content;align-items:center;gap:6px;font-size:12px;font-weight:800;opacity:1;margin:16px 0 6px;padding:5px 12px;border-radius:99px;background:rgba(139,92,246,.14);color:#8b5cf6}.set-h:before{content:"";width:14px;height:14px;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat;flex-shrink:0}#al-set-h{--i:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22black%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%223%22 y=%2211%22 width=%2218%22 height=%2211%22 rx=%222%22/%3E%3Cpath d=%22M7 11V7a5 5 0 0110 0v4%22/%3E%3C/svg%3E")}#set-h-backup{--i:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22black%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4%22/%3E%3Cpath d=%22M7 10l5 5 5-5M12 15V3%22/%3E%3C/svg%3E")}#set-h-notif{--i:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22black%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0%22/%3E%3C/svg%3E")}
 
         .sb-icon span { filter: none; }
 
@@ -665,8 +665,60 @@
     var _PREMIUM_GRACE_MS = 3 * 86400000;
     var _premCache = { tok: null, at: 0, res: null };
 </script>
+<style id="applock-css">
+#applock-overlay{position:fixed;inset:0;z-index:2147483000;display:none;flex-direction:column;align-items:center;justify-content:center;background-color:#0f172a;background-image:var(--anim-bg,none);background-size:400% 400%;color:var(--text,#fff);padding:20px;direction:ltr;-webkit-user-select:none;user-select:none}
+#applock-overlay.on{display:flex}#applock-overlay.sqmode .al-dots,#applock-overlay.sqmode .al-pad,#applock-overlay.sqmode .al-forgot#al-forgot{display:none}#applock-overlay #al-sq{display:none}#applock-overlay #al-sq.on{display:flex}
+html[data-theme="light"] #applock-overlay{background-color:#f1f5f9}html[data-theme="dark"] #applock-overlay{background-color:#1e293b}html[data-theme="night"] #applock-overlay{background-color:#111}html[data-theme="golden"] #applock-overlay{background-color:#fefce8}html[data-theme="spring"] #applock-overlay{background-color:#d1fae5}html[data-theme="cosmic"] #applock-overlay,html[data-theme="aurora"] #applock-overlay{background-color:#0f172a}
+#applock-overlay .al-x{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(128,128,128,.15);color:inherit;display:none;align-items:center;justify-content:center;cursor:pointer}
+#applock-overlay.cancelable .al-x{display:flex}
+#applock-overlay .al-ic{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:14px}
+#applock-overlay .al-t{font-size:18px;font-weight:700;margin-bottom:6px;text-align:center}
+#applock-overlay .al-m{font-size:13px;min-height:18px;color:#ef4444;margin-bottom:14px;text-align:center;font-weight:600}
+#applock-overlay .al-dots{display:flex;gap:14px;margin-bottom:22px}
+#applock-overlay .al-dots i{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;opacity:.5;transition:all .15s}
+#applock-overlay .al-dots i.f{background:#8b5cf6;border-color:#8b5cf6;opacity:1;transform:scale(1.1)}
+#applock-overlay .al-dots.shake{animation:alShake .4s}
+@keyframes alShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+#applock-overlay .al-pad{display:grid;grid-template-columns:repeat(3,72px);gap:14px}
+#applock-overlay .al-pad button{width:72px;height:72px;border-radius:50%;border:none;background:rgba(128,128,128,.14);color:inherit;font-size:26px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:background .1s,transform .1s}
+#applock-overlay .al-pad button:active{background:rgba(139,92,246,.4);transform:scale(.93)}
+#applock-overlay .al-pad button.al-e{visibility:hidden}
+#applock-overlay .al-pad.dis{opacity:.35;pointer-events:none}
+#applock-overlay .al-forgot{margin-top:22px;background:none;border:none;color:#8b5cf6;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+#applock-overlay .al-forgot.hide{display:none}
+@media (max-height:640px){#applock-overlay .al-pad{grid-template-columns:repeat(3,60px);gap:10px}#applock-overlay .al-pad button{width:60px;height:60px;font-size:22px}#applock-overlay .al-ic{display:none}}
+</style>
 </head>
 <body>
+<div id="applock-overlay" role="dialog" aria-modal="true">
+<button class="al-x" id="al-x" aria-label="close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+<div class="al-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+<div class="al-t" id="al-t"></div><div class="al-m" id="al-m"></div>
+<div class="al-dots" id="al-dots"><i></i><i></i><i></i><i></i></div>
+<div class="al-pad" id="al-pad">
+<button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+<button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+<button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+<button class="al-e"></button><button data-k="0">0</button><button data-k="b" aria-label="delete"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z"/><path d="M18 9l-6 6M12 9l6 6"/></svg></button>
+</div>
+<button class="al-forgot" id="al-forgot"></button>
+<div id="al-sq" style="width:100%;max-width:320px;flex-direction:column;gap:10px;">
+<select id="al-sq-sel" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(128,128,128,.4);background:rgba(128,128,128,.1);color:inherit;font-size:14px;font-family:inherit"></select>
+<div id="al-sq-q" style="display:none;font-weight:700;text-align:center;font-size:15px;margin-bottom:2px"></div>
+<input id="al-sq-ans" type="text" autocomplete="off" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(128,128,128,.4);background:rgba(128,128,128,.1);color:inherit;font-size:15px;font-family:inherit;direction:rtl;text-align:center">
+<button id="al-sq-ok" class="confirm-btn confirm-btn-yes" style="width:100%"></button>
+<button id="al-sq-erase" class="al-forgot" style="margin-top:6px"></button>
+</div>
+
+</div>
+<div class="modal-overlay" id="applock-prompt"><div class="modal-box" style="text-align:center;">
+<div style="width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;color:#fff;margin:0 auto 12px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+<div id="alp-t" style="font-size:18px;font-weight:700;margin-bottom:8px;"></div>
+<p id="alp-d" style="font-size:13px;opacity:.8;margin-bottom:16px;line-height:1.6;"></p>
+<div class="modal-grid-buttons"><button id="alp-yes" class="confirm-btn confirm-btn-yes"></button><button id="alp-no" class="confirm-btn confirm-btn-no"></button></div>
+</div></div>
+<script id="applock-early">(function(){try{if(localStorage.getItem('penny_applock')){document.getElementById('applock-overlay').classList.add('on');}}catch(e){}})();</script>
+
 
     <div id="print-area"></div>
 
@@ -711,10 +763,6 @@
                 <span class="sb-label" id="sidebar-recurring-btn">بەڕێوەبردنی مامەڵە دووبارەبووەکان</span>
             </button>
 
-            <button class="sidebar-btn" onclick="toggleSidebar(); openChangePinModal()">
-                <div class="sb-icon sb-c-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-                <span class="sb-label" id="sidebar-changepin-btn">Change PIN</span>
-            </button>
 
             <button class="sidebar-btn" id="premium-toggle-btn" onclick="toggleSidebar(); togglePremium()">
                 <div class="sb-icon sb-c-prem" id="premium-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
@@ -1159,6 +1207,15 @@
                     <span class="curr-balance-lock" id="balance-lock-INR" style="display:none;font-size:11px;background:rgba(239,68,68,0.12);color:#dc2626;padding:1px 6px;border-radius:6px;margin-top:2px;">🔒</span>
                 </div>
 
+                <div class="curr-card" id="curr-card-CNY" onclick="toggleCurrCard('CNY')">
+                    <input type="checkbox" id="setup-curr-CNY" value="CNY" style="display:none;">
+                    <div style="font-size:28px;">🇨🇳</div>
+                    <div style="font-weight:800;font-size:13px;">CNY</div>
+                    <div style="font-size:11px;opacity:0.6;" id="curr-name-CNY">یوانی چینی</div>
+                    <span class="curr-crown" id="crown-CNY" style="display:none;font-size:11px;background:rgba(245,158,11,0.15);color:#d97706;padding:1px 6px;border-radius:6px;margin-top:2px;">👑</span>
+                    <span class="curr-balance-lock" id="balance-lock-CNY" style="display:none;font-size:11px;background:rgba(239,68,68,0.12);color:#dc2626;padding:1px 6px;border-radius:6px;margin-top:2px;">🔒</span>
+                </div>
+
             </div>
             <button id="curr-setup-save-btn" class="btn-submit" onclick="saveCurrencySetup()">پاشەکەوتکردن</button>
         </div>
@@ -1198,7 +1255,7 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="card-currency-modal"><div class="modal-box"><div id="card-curr-title" style="font-size:20px; font-weight:800; margin-bottom:20px;">💵 هەڵبژاردنی دراوی سەرەکی</div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;"><button class="type-btn" id="card-curr-opt-IQD" style="background: var(--background);" onclick="selectCardCurrency('IQD')"><span style="font-size:20px;">🇮🇶</span> IQD <span id="card-curr-name-IQD">دینار</span></button><button class="type-btn" id="card-curr-opt-USD" style="background: var(--background);" onclick="selectCardCurrency('USD')"><span style="font-size:20px;">🇺🇸</span> USD <span id="card-curr-name-USD">دۆلار</span></button><button class="type-btn" id="card-curr-opt-EUR" style="background: var(--background);" onclick="selectCardCurrency('EUR')"><span style="font-size:20px;">🇪🇺</span> EUR <span id="card-curr-name-EUR">یۆرۆ</span></button><button class="type-btn" id="card-curr-opt-TRY" style="background: var(--background);" onclick="selectCardCurrency('TRY')"><span style="font-size:20px;">🇹🇷</span> TRY <span id="card-curr-name-TRY">لیرە</span></button><button class="type-btn" id="card-curr-opt-IRR" style="background: var(--background);" onclick="selectCardCurrency('IRR')"><span style="font-size:20px;">🇮🇷</span> IRR <span id="card-curr-name-IRR">تمەن</span></button><button class="type-btn" id="card-curr-opt-GBP" style="background: var(--background);" onclick="selectCardCurrency('GBP')"><span style="font-size:20px;">🇬🇧</span> GBP <span id="card-curr-name-GBP">پاوەند</span></button><button class="type-btn" id="card-curr-opt-SAR" style="background: var(--background);" onclick="selectCardCurrency('SAR')"><span style="font-size:20px;">🇸🇦</span> SAR <span id="card-curr-name-SAR">ریاڵی سعودی</span></button><button class="type-btn" id="card-curr-opt-AED" style="background: var(--background);" onclick="selectCardCurrency('AED')"><span style="font-size:20px;">🇦🇪</span> AED <span id="card-curr-name-AED">دیرهەم</span></button><button class="type-btn" id="card-curr-opt-KWD" style="background: var(--background);" onclick="selectCardCurrency('KWD')"><span style="font-size:20px;">🇰🇼</span> KWD <span id="card-curr-name-KWD">دینار کویتی</span></button><button class="type-btn" id="card-curr-opt-INR" style="background: var(--background);" onclick="selectCardCurrency('INR')"><span style="font-size:20px;">🇮🇳</span> INR <span id="card-curr-name-INR">ڕوپیە</span></button><button class="type-btn" id="card-curr-opt-SYP" style="background: var(--background);" onclick="selectCardCurrency('SYP')"><span style="font-size:20px;">🇸🇾</span> SYP <span id="card-curr-name-SYP">لیرەی سووری</span></button></div><button id="card-curr-close-btn" class="confirm-btn confirm-btn-no" style="width:100%;" onclick="closeModal('card-currency-modal')">داخستن</button></div></div>
+    <div class="modal-overlay" id="card-currency-modal"><div class="modal-box"><div id="card-curr-title" style="font-size:20px; font-weight:800; margin-bottom:20px;">💵 هەڵبژاردنی دراوی سەرەکی</div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;"><button class="type-btn" id="card-curr-opt-IQD" style="background: var(--background);" onclick="selectCardCurrency('IQD')"><span style="font-size:20px;">🇮🇶</span> IQD <span id="card-curr-name-IQD">دینار</span></button><button class="type-btn" id="card-curr-opt-USD" style="background: var(--background);" onclick="selectCardCurrency('USD')"><span style="font-size:20px;">🇺🇸</span> USD <span id="card-curr-name-USD">دۆلار</span></button><button class="type-btn" id="card-curr-opt-EUR" style="background: var(--background);" onclick="selectCardCurrency('EUR')"><span style="font-size:20px;">🇪🇺</span> EUR <span id="card-curr-name-EUR">یۆرۆ</span></button><button class="type-btn" id="card-curr-opt-TRY" style="background: var(--background);" onclick="selectCardCurrency('TRY')"><span style="font-size:20px;">🇹🇷</span> TRY <span id="card-curr-name-TRY">لیرە</span></button><button class="type-btn" id="card-curr-opt-IRR" style="background: var(--background);" onclick="selectCardCurrency('IRR')"><span style="font-size:20px;">🇮🇷</span> IRR <span id="card-curr-name-IRR">تمەن</span></button><button class="type-btn" id="card-curr-opt-GBP" style="background: var(--background);" onclick="selectCardCurrency('GBP')"><span style="font-size:20px;">🇬🇧</span> GBP <span id="card-curr-name-GBP">پاوەند</span></button><button class="type-btn" id="card-curr-opt-SAR" style="background: var(--background);" onclick="selectCardCurrency('SAR')"><span style="font-size:20px;">🇸🇦</span> SAR <span id="card-curr-name-SAR">ریاڵی سعودی</span></button><button class="type-btn" id="card-curr-opt-AED" style="background: var(--background);" onclick="selectCardCurrency('AED')"><span style="font-size:20px;">🇦🇪</span> AED <span id="card-curr-name-AED">دیرهەم</span></button><button class="type-btn" id="card-curr-opt-KWD" style="background: var(--background);" onclick="selectCardCurrency('KWD')"><span style="font-size:20px;">🇰🇼</span> KWD <span id="card-curr-name-KWD">دینار کویتی</span></button><button class="type-btn" id="card-curr-opt-INR" style="background: var(--background);" onclick="selectCardCurrency('INR')"><span style="font-size:20px;">🇮🇳</span> INR <span id="card-curr-name-INR">ڕوپیە</span></button><button class="type-btn" id="card-curr-opt-CNY" style="background: var(--background);" onclick="selectCardCurrency('CNY')"><span style="font-size:20px;">🇨🇳</span> CNY <span id="card-curr-name-CNY">یوانی چینی</span></button><button class="type-btn" id="card-curr-opt-SYP" style="background: var(--background);" onclick="selectCardCurrency('SYP')"><span style="font-size:20px;">🇸🇾</span> SYP <span id="card-curr-name-SYP">لیرەی سووری</span></button></div><button id="card-curr-close-btn" class="confirm-btn confirm-btn-no" style="width:100%;" onclick="closeModal('card-currency-modal')">داخستن</button></div></div>
     <div class="modal-overlay" id="theme-modal"><div class="modal-box"><div id="theme-title" style="font-size:20px; font-weight:800; margin-bottom:15px;">🎨 مۆدی بەرنامە</div><div class="modal-theme-grid">
         <div class="modal-theme-card" onclick="selectTheme('light')"><div style="font-size:24px;">☀️</div><span>Light</span></div>
         <div class="modal-theme-card" onclick="selectTheme('dark')"><div style="font-size:24px;">🌙</div><span>Dark</span></div>
@@ -1382,6 +1439,7 @@
                     <button type="button" id="dcurr-AED" class="currency-btn" onclick="setDebtCurrency('AED')"><span style="font-size:26px; margin-bottom:2px;">🇦🇪</span><span>AED</span></button>
                     <button type="button" id="dcurr-KWD" class="currency-btn" onclick="setDebtCurrency('KWD')"><span style="font-size:26px; margin-bottom:2px;">🇰🇼</span><span>KWD</span></button>
                     <button type="button" id="dcurr-INR" class="currency-btn" onclick="setDebtCurrency('INR')"><span style="font-size:26px; margin-bottom:2px;">🇮🇳</span><span>INR</span></button>
+                    <button type="button" id="dcurr-CNY" class="currency-btn" onclick="setDebtCurrency('CNY')"><span style="font-size:26px; margin-bottom:2px;">🇨🇳</span><span>CNY</span></button>
                 </div>
                 <div class="modal-grid-buttons" style="margin-bottom:10px;">
                     <button id="debt-submit-btn" class="confirm-btn confirm-btn-yes" style="width: 100%; grid-column: span 2;" onclick="submitDebtTransaction()">تۆمارکردن</button>
@@ -1586,6 +1644,9 @@
 
     <div class="modal-overlay" id="settings-modal"><div class="modal-box" style="text-align:start;max-height:88vh;overflow-y:auto;">
         <h3 id="set-title" style="margin-bottom:6px;">Settings</h3>
+        <div class="set-h" id="al-set-h">Security</div>
+        <div class="set-row"><div><div class="set-title" id="al-set-t"></div><div class="set-sub" id="al-set-s"></div></div><label class="set-sw"><input type="checkbox" id="al-set-chk" onchange="PennyLock.toggle(this.checked)"><span></span></label></div>
+        <div class="set-row" id="al-chg-row" style="cursor:pointer;display:none" onclick="PennyLock.change()"><div><div class="set-title" id="al-chg-t"></div></div></div>
         <div class="set-h" id="set-h-backup">Backup</div>
         <div class="set-row" style="cursor:pointer" onclick="closeModal('settings-modal'); exportData()"><div><div class="set-title" id="sidebar-export-btn">Export</div><div class="set-sub" id="set-export-sub"></div></div><span style="color:#14b8a6;display:flex"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></div>
         <div class="set-row" style="cursor:pointer" onclick="closeModal('settings-modal'); triggerImport()"><div><div class="set-title"><span id="sidebar-import-btn">Import</span> <span id="import-lock-icon" style="font-size:11px;opacity:.5">🔒</span></div><div class="set-sub" id="set-import-sub"></div></div><span style="color:#a855f7;display:flex"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span></div>
@@ -1618,6 +1679,7 @@
                     <button type="button" id="curr-AED" class="currency-btn" onclick="setRecordCurrency('AED')"><span>🇦🇪</span><span>AED</span></button>
                     <button type="button" id="curr-KWD" class="currency-btn" onclick="setRecordCurrency('KWD')"><span>🇰🇼</span><span>KWD</span></button>
                     <button type="button" id="curr-INR" class="currency-btn" onclick="setRecordCurrency('INR')"><span>🇮🇳</span><span>INR</span></button>
+                    <button type="button" id="curr-CNY" class="currency-btn" onclick="setRecordCurrency('CNY')"><span>🇨🇳</span><span>CNY</span></button>
                 </div>
                 <div style="border-top: 1px dashed var(--border); padding-top: 10px; margin-bottom: 5px;">
                     <div id="lbl-cat-title" style="font-size: 12px; font-weight: bold; margin-bottom: 5px; opacity: 0.8; text-align: start;">پۆڵێن (کاتیگۆری):</div>
@@ -1732,6 +1794,7 @@
         AED: { flag:'🇦🇪', names:{ ku:'دیرهەمی ئیماراتی', ar:'درهم إماراتي', en:'UAE Dirham', fa:'درهم امارات', tr:'BAE Dirhemi' } },
         KWD: { flag:'🇰🇼', names:{ ku:'دینار کویتی', ar:'دينار كويتي', en:'Kuwaiti Dinar', fa:'دینار کویت', tr:'Kuveyt Dinarı' } },
         INR: { flag:'🇮🇳', names:{ ku:'ڕوپیەی هندی', ar:'روبية هندية', en:'Indian Rupee', fa:'روپیه هند', tr:'Hint Rupisi' } },
+        CNY: { flag:'🇨🇳', names:{ ku:'یوانی چینی', ar:'يوان صيني', en:'Chinese Yuan', fa:'یوان چین', tr:'Çin Yuanı' } },
     };
     var currencyFlags = {};
     Object.keys(CURRENCIES).forEach(function(k){ currencyFlags[k] = CURRENCIES[k].flag; });
@@ -6139,7 +6202,7 @@
     // ============================================================
     let exchangeRatesCache = null; // { base: 'usd', rates: {...}, fetchedAt: timestamp }
     // Global USD-based rate cache — fetched once, used by charts + exchange
-    let globalRatesUSD = { USD:1, IQD:1480, EUR:0.92, TRY:32, IRR:250000, GBP:0.79, SAR:3.75, AED:3.67, KWD:0.31, INR:83, SYP:122 };
+    let globalRatesUSD = { USD:1, IQD:1480, EUR:0.92, TRY:32, IRR:250000, GBP:0.79, SAR:3.75, AED:3.67, KWD:0.31, INR:83, CNY:7.1, SYP:122 };
     let globalRatesFetchedAt = 0;
 
     async function fetchGlobalRates() {
@@ -6601,6 +6664,109 @@ function start(){
 window.pennyIcon=function(e){var b=badge(String(e).replace(/\uFE0F/g,''));return b?b.outerHTML:e};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
+</script>
+<script id="applock-js">
+var PennyLock=(function(){
+var L={
+ku:{set1:'پینکۆدی ئەپ دابنێ',set2:'پینکۆدەکە دووبارە بنووسە',unl:'پینکۆد بنووسە',old:'پینکۆدی ئێستا بنووسە',bad:'پینکۆدەکە هەڵەیە',mm:'پینکۆدەکان یەکسان نین',wait:'چاوەڕێ بکە {s} چرکە',forgot:'پینکۆدم بیرچووە',fw:'ئەگەر پینکۆدت بیرچووبێت، تەنها ڕێگا سڕینەوەی هەموو داتای ئەپەکەیە. دڵنیایت؟',yes:'سڕینەوەی هەموو داتا',cancel:'پاشگەزبوونەوە',h:'پاراستن',t:'قوفڵی ئەپ بە پینکۆد',s:'لە کاتی کردنەوەی ئەپ پینکۆد داوا دەکات',chg:'گۆڕینی پینکۆدی ئەپ',pt:'ئەپەکەت بپارێزە',pd:'پینکۆدێک دابنێ بۆ ئەوەی کەسی تر نەتوانێت داتای دارایی تۆ ببینێت.',ps:'دانانی پینکۆد',pl:'دواتر',ok:'پینکۆد دانرا',off:'قوفڵی پینکۆد لابرا',sqt:'پرسیاری پاراستن هەڵبژێرە (بۆ گەڕاندنەوەی پینکۆد)',sqa:'وەڵامەکەت بنووسە',sqs:'پاشەکەوتکردن',sqc:'پشکنین',sqw:'وەڵامەکە هەڵەیە',sqe:'نەمتوانی وەڵام بدەمەوە (سڕینەوەی هەموو داتا)',sqh:'وەڵامێک بنووسە',sq:['ناوی یەکەم قوتابخانەت چی بوو؟','ناوی باشترین هاوڕێی منداڵیت چییە؟','لە کام شار لەدایک بوویت؟','خواردنی دڵخوازت چییە؟','ناوی یەکەم ئاژەڵی ماڵتان چی بوو؟']},
+en:{set1:'Set an app PIN',set2:'Re-enter the PIN',unl:'Enter PIN',old:'Enter current PIN',bad:'Wrong PIN',mm:'PINs do not match',wait:'Wait {s}s',forgot:'Forgot PIN',fw:'If you forgot your PIN, the only way is to erase all app data. Are you sure?',yes:'Erase all data',cancel:'Cancel',h:'Security',t:'App PIN lock',s:'Asks for a PIN when the app opens',chg:'Change app PIN',pt:'Protect your app',pd:'Set a PIN so nobody else can see your financial data.',ps:'Set PIN',pl:'Later',ok:'PIN set',off:'PIN lock removed',sqt:'Choose a security question (for PIN recovery)',sqa:'Type your answer',sqs:'Save',sqc:'Verify',sqw:'Wrong answer',sqe:'I can\u2019t answer (erase all data)',sqh:'Write an answer',sq:['What was your first school?','Who was your best childhood friend?','In which city were you born?','What is your favorite food?','What was your first pet\u2019s name?']},
+ar:{set1:'عيّن رمز PIN للتطبيق',set2:'أعد إدخال الرمز',unl:'أدخل رمز PIN',old:'أدخل الرمز الحالي',bad:'الرمز غير صحيح',mm:'الرمزان غير متطابقين',wait:'انتظر {s} ثانية',forgot:'نسيت الرمز',fw:'إذا نسيت الرمز فالحل الوحيد هو حذف جميع بيانات التطبيق. هل أنت متأكد؟',yes:'حذف جميع البيانات',cancel:'إلغاء',h:'الحماية',t:'قفل التطبيق برمز PIN',s:'يطلب الرمز عند فتح التطبيق',chg:'تغيير رمز التطبيق',pt:'احمِ تطبيقك',pd:'عيّن رمز PIN حتى لا يرى أحد بياناتك المالية.',ps:'تعيين الرمز',pl:'لاحقاً',ok:'تم تعيين الرمز',off:'تمت إزالة القفل',sqt:'اختر سؤال أمان (لاسترداد الرمز)',sqa:'اكتب إجابتك',sqs:'حفظ',sqc:'تحقق',sqw:'الإجابة خاطئة',sqe:'لا أستطيع الإجابة (حذف كل البيانات)',sqh:'اكتب إجابة',sq:['ما اسم أول مدرسة لك؟','من هو أفضل صديق في طفولتك؟','في أي مدينة وُلدت؟','ما هو طعامك المفضل؟','ما اسم أول حيوان أليف لديك؟']},
+fa:{set1:'پین برنامه را تعیین کنید',set2:'پین را دوباره وارد کنید',unl:'پین را وارد کنید',old:'پین فعلی را وارد کنید',bad:'پین اشتباه است',mm:'پین‌ها یکسان نیستند',wait:'{s} ثانیه صبر کنید',forgot:'پین را فراموش کردم',fw:'اگر پین را فراموش کرده‌اید، تنها راه حذف تمام داده‌های برنامه است. مطمئن هستید؟',yes:'حذف تمام داده‌ها',cancel:'انصراف',h:'امنیت',t:'قفل برنامه با پین',s:'هنگام باز شدن برنامه پین می‌خواهد',chg:'تغییر پین برنامه',pt:'از برنامه محافظت کنید',pd:'یک پین تعیین کنید تا کسی داده‌های مالی شما را نبیند.',ps:'تعیین پین',pl:'بعداً',ok:'پین تعیین شد',off:'قفل پین حذف شد',sqt:'یک سؤال امنیتی انتخاب کنید (برای بازیابی پین)',sqa:'پاسخ خود را بنویسید',sqs:'ذخیره',sqc:'بررسی',sqw:'پاسخ اشتباه است',sqe:'نمی‌توانم پاسخ دهم (حذف تمام داده‌ها)',sqh:'یک پاسخ بنویسید',sq:['اولین مدرسه شما چه بود؟','بهترین دوست دوران کودکی شما کیست؟','در کدام شهر متولد شدید؟','غذای مورد علاقه شما چیست؟','نام اولین حیوان خانگی شما چه بود؟']},
+tr:{set1:'Uygulama PIN’i belirle',set2:'PIN’i tekrar gir',unl:'PIN girin',old:'Mevcut PIN’i girin',bad:'Yanlış PIN',mm:'PIN’ler eşleşmiyor',wait:'{s} sn bekleyin',forgot:'PIN’i unuttum',fw:'PIN’i unuttuysanız tek yol tüm uygulama verilerini silmektir. Emin misiniz?',yes:'Tüm verileri sil',cancel:'İptal',h:'Güvenlik',t:'PIN ile uygulama kilidi',s:'Uygulama açılırken PIN ister',chg:'Uygulama PIN’ini değiştir',pt:'Uygulamanı koru',pd:'Finansal verilerini kimse görmesin diye bir PIN belirle.',ps:'PIN belirle',pl:'Sonra',ok:'PIN belirlendi',off:'PIN kilidi kaldırıldı',sqt:'Bir güvenlik sorusu seçin (PIN kurtarma için)',sqa:'Cevabınızı yazın',sqs:'Kaydet',sqc:'Doğrula',sqw:'Yanlış cevap',sqe:'Cevaplayamıyorum (tüm verileri sil)',sqh:'Bir cevap yazın',sq:['İlk okulunuz neydi?','En iyi çocukluk arkadaşınız kim?','Hangi şehirde doğdunuz?','En sevdiğiniz yemek nedir?','İlk evcil hayvanınızın adı neydi?']}
+};
+function T(){var l=(typeof currentLang!=='undefined'&&L[currentLang])?currentLang:'ku';return L[l];}
+function g(id){return document.getElementById(id);}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}return null;}
+async function hash(p){var s='penny|'+p;try{if(window.crypto&&crypto.subtle){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.prototype.map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2);}).join('');}}catch(e){}var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return 'f'+h;}
+var mode='',buf='',tmp='',cb=null,fails=0,lockUntil=0,timer=null,busy=false;
+function has(){return !!ls('penny_applock');}
+function dots(){var d=g('al-dots').children;for(var i=0;i<4;i++)d[i].className=i<buf.length?'f':'';}
+function msg(t){g('al-m').textContent=t||'';}
+function shake(){var d=g('al-dots');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');try{navigator.vibrate&&navigator.vibrate(120);}catch(e){}}
+function show(m,cancelable,onok){sqLeave();mode=m;buf='';tmp='';cb=onok||null;msg('');dots();var o=g('applock-overlay');o.classList.add('on');o.classList.toggle('cancelable',!!cancelable);title();g('al-forgot').textContent=T().forgot;g('al-forgot').classList.toggle('hide',m!=='unlock');document.body.classList.add('modal-open');}
+function title(){var t=T();g('al-t').textContent=({unlock:t.unl,set1:t.set1,set2:t.set2,verify:t.old})[mode]||'';}
+function hide(){sqLeave();g('applock-overlay').classList.remove('on','cancelable');mode='';buf='';if(!document.querySelector('.modal-overlay.show-modal')&&!document.body.classList.contains('sidebar-open'))document.body.classList.remove('modal-open');}
+function tick(){var r=Math.ceil((lockUntil-Date.now())/1000);if(r<=0){clearInterval(timer);timer=null;g('al-pad').classList.remove('dis');msg('');fails=0;return;}msg(T().wait.replace('{s}',r));}
+var pendPin='',recov=false,tmpQ=-1;
+function norm(a){return String(a||'').toLowerCase().replace(/[\u064B-\u0652\u200c\u200d\s]/g,'').replace(/\u064A/g,'\u06CC').replace(/\u0643/g,'\u06A9');}
+async function done(){
+ if(busy)return;busy=true;var p=buf;
+ try{
+ if(mode==='set1'){tmp=p;buf='';mode='set2';title();dots();}
+ else if(mode==='set2'){
+  if(p===tmp){
+   if(recov){ls('penny_applock',await hash(p));recov=false;fails=0;hide();try{showToast(T().ok);}catch(e){}sync();}
+   else{pendPin=p;sqShow('sqset');}
+  }else{shake();msg(T().mm);buf='';tmp='';mode='set1';title();dots();}
+ }else{
+  var ok=(await hash(p))===ls('penny_applock');
+  if(ok){fails=0;var f=cb;hide();if(f)f();}
+  else{shake();buf='';dots();fails++;msg(T().bad);if(fails>=5){lockUntil=Date.now()+30000;g('al-pad').classList.add('dis');clearInterval(timer);timer=setInterval(tick,500);tick();}}
+ }}finally{busy=false;}
+}
+function sqShow(m){
+ mode=m;var t=T(),o=g('applock-overlay');o.classList.add('sqmode');g('al-sq').classList.add('on');
+ g('al-sq-ans').value='';g('al-sq-ans').placeholder=t.sqa;msg('');if(m==='sqans')o.classList.add('cancelable');
+ g('al-t').textContent=(m==='sqset')?t.sqt:t.forgot;
+ var sel=g('al-sq-sel');
+ if(m==='sqset'){sel.innerHTML=t.sq.map(function(q,i){return '<option value="'+i+'">'+q+'</option>';}).join('');sel.style.display='';g('al-sq-q').style.display='none';g('al-sq-ok').textContent=t.sqs;g('al-sq-erase').style.display='none';}
+ else{var qi=parseInt(ls('penny_applock_q'),10);sel.style.display='none';var qq=g('al-sq-q');qq.style.display='';qq.textContent=t.sq[qi]||'';g('al-sq-ok').textContent=t.sqc;g('al-sq-erase').style.display='';g('al-sq-erase').textContent=t.sqe;}
+ setTimeout(function(){try{g('al-sq-ans').focus();}catch(e){}},150);
+}
+function sqLeave(){g('applock-overlay').classList.remove('sqmode');g('al-sq').classList.remove('on');}
+async function sqOk(){
+ var a=norm(g('al-sq-ans').value),t=T();
+ if(!a){msg(t.sqh);return;}
+ if(mode==='sqset'){
+  ls('penny_applock',await hash(pendPin));ls('penny_applock_q',g('al-sq-sel').value);ls('penny_applock_a',await hash('sq|'+a));
+  ls('penny_pin_prompt_ts',String(Date.now()));pendPin='';sqLeave();hide();try{showToast(t.ok);}catch(e){}sync();
+ }else if(mode==='sqans'){
+  if(Date.now()<lockUntil){tick2();return;}
+  if((await hash('sq|'+a))===ls('penny_applock_a')){fails=0;sqLeave();recov=true;show('set1',false);}
+  else{fails++;msg(t.sqw);g('al-sq-ans').value='';if(fails>=5){lockUntil=Date.now()+30000;fails=0;tick2();}}
+ }
+}
+function tick2(){var r=Math.ceil((lockUntil-Date.now())/1000);if(r>0)msg(T().wait.replace('{s}',r));}
+function forgot(){
+ if(ls('penny_applock_a')&&ls('penny_applock_q')!==null){sqShow('sqans');}else{eraseAll();}
+}
+function key(k){
+ if(busy||!mode||!g('applock-overlay').classList.contains('on')||g('al-pad').classList.contains('dis'))return;
+ if(k==='b'){buf=buf.slice(0,-1);dots();return;}
+ if(buf.length>=4)return;buf+=k;dots();if(buf.length===4)setTimeout(done,120);
+}
+function sync(){var c=g('al-set-chk');if(c)c.checked=has();var r=g('al-chg-row');if(r)r.style.display=has()?'':'none';}
+function texts(){var t=T();[['al-set-h',t.h],['al-set-t',t.t],['al-set-s',t.s],['al-chg-t',t.chg]].forEach(function(x){var e=g(x[0]);if(e)e.textContent=x[1];});sync();}
+function eraseAll(){if(window.confirm(T().fw)){try{localStorage.clear();sessionStorage.clear();}catch(e){}try{if(window.indexedDB&&indexedDB.databases)indexedDB.databases().then(function(a){a.forEach(function(d){indexedDB.deleteDatabase(d.name);});});}catch(e){}setTimeout(function(){location.reload();},300);}}
+function init(){
+ g('al-pad').addEventListener('click',function(e){var b=e.target.closest('button[data-k]');if(b)key(b.getAttribute('data-k'));});
+ g('al-x').addEventListener('click',function(){var was=mode;pendPin='';recov=false;if(was==='sqans'){show('unlock',false);}else{hide();sync();}});
+ g('al-forgot').addEventListener('click',forgot);g('al-sq-ok').addEventListener('click',sqOk);g('al-sq-ans').addEventListener('keydown',function(e){if(e.key==='Enter')sqOk();});g('al-sq-erase').addEventListener('click',eraseAll);
+ document.addEventListener('keydown',function(e){if(!g('applock-overlay').classList.contains('on')||g('applock-overlay').classList.contains('sqmode'))return;if(/^[0-9]$/.test(e.key))key(e.key);else if(e.key==='Backspace')key('b');else if(e.key==='Escape'&&g('applock-overlay').classList.contains('cancelable')){hide();sync();}});
+ var hiddenAt=0;
+ document.addEventListener('visibilitychange',function(){if(document.hidden){hiddenAt=Date.now();}else if(has()&&hiddenAt&&Date.now()-hiddenAt>300000&&!g('applock-overlay').classList.contains('on')){show('unlock',false);}hiddenAt=0;});
+ if(has()&&!g('applock-overlay').classList.contains('on'))show('unlock',false);else if(has())show('unlock',false);
+ var o=window.refreshSettingsModal;if(typeof o==='function'){window.refreshSettingsModal=function(){o.apply(this,arguments);texts();};}
+ texts();
+ setTimeout(maybePrompt,2500);
+}
+function maybePrompt(tries){
+ if(has())return;var ts=parseInt(ls('penny_pin_prompt_ts')||'0',10);
+ if(ts&&Date.now()-ts<60*24*3600*1000)return;
+ if(document.querySelector('.modal-overlay.show-modal')||g('applock-overlay').classList.contains('on')){if((tries||0)<6)setTimeout(function(){maybePrompt((tries||0)+1);},15000);return;}
+ var t=T();g('alp-t').textContent=t.pt;g('alp-d').textContent=t.pd;g('alp-yes').textContent=t.ps;g('alp-no').textContent=t.pl;
+ ls('penny_pin_prompt_ts',String(Date.now()));
+ g('alp-yes').onclick=function(){closeModal('applock-prompt');api.toggle(true);};
+ g('alp-no').onclick=function(){closeModal('applock-prompt');};
+ openModal('applock-prompt');
+}
+var api={
+ toggle:function(on){if(on){show('set1',true);}else{show('verify',true,function(){ls('penny_applock',null);ls('penny_applock_q',null);ls('penny_applock_a',null);try{showToast(T().off);}catch(e){}sync();});}},
+ change:function(){show('verify',true,function(){show('set1',true);});},
+ refresh:texts
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+return api;})();
 </script>
 </body>
 </html>
